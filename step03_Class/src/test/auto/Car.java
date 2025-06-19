@@ -11,6 +11,8 @@ package test.auto;
  * 
  * 3. static 필드와 메소드를 포함하는 역할
  * */
+
+
 public class Car {
 	//차의 이름을 저장할 필드 만들기(필드는 지역변수가 아님)
 	//필드는 객체 고유의 저장소이다. 필드는 선언만해도 기본값이 들어가면서 만들어짐
@@ -22,7 +24,7 @@ public class Car {
 	
 	//달리는 기능(method) 만들기
 	public void drive() {
-		System.out.println(this.name +"이(가) 달려요!");
+		System.out.println(this.name +"이(가) 달려요!");	
 	}
 
 }
