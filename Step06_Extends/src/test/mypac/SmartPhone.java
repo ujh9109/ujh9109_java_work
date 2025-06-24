@@ -17,6 +17,7 @@ public class SmartPhone extends HandPhone {
 	//메소드 오버라이드
 	@Override
 	public void takePicture() {
+		//super.takePicture();
 		System.out.println("1억 화소의 사진을 찍어요!");
 	}
 	

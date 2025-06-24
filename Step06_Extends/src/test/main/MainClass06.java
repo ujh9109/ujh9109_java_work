@@ -1,14 +1,15 @@
 package test.main;
 
-import test.mypac.Circle;
+
+import test.mypac.SmartPhone;
 
 public class MainClass06 {
 	public static void main(String[] args) {
 		
-	Circle c1 =	new Circle(100,200,5);
+	SmartPhone p1 = new SmartPhone();
 	
-	c1.printArea();
-	
-	}
-	
+	p1.takePicture();
+
+ }
+
 }

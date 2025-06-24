@@ -1,7 +1,7 @@
 package test.mypac;
 
 	//가상의 도형(모형)을 나타내는 객체를 생성할 클래스
-public class Shape {
+public class Shape  {
 	
 	//도형의 위치
 	private int x;
@@ -14,12 +14,8 @@ public class Shape {
 		this.y = y;
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
+	public void printInfo() {
+		System.out.println("x 좌표는:" +this.x+ " y 좌표는:"+this.y);
 	}
 	
 
