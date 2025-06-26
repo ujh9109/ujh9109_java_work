@@ -34,8 +34,7 @@ public class MainClass06 {
 				System.out.println("가상공간 공격을 시작합니다.");
 				
 			}
-		}
-		.attack();
+		}.attack();
 		
 	}
 }
