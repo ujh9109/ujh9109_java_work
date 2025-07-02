@@ -7,7 +7,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.net.URL;
@@ -20,7 +19,7 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel {
 	//필드 선언(지역변수에 있는 값을 참조 불가능)
-	Image unitImage, backImage, missileImage;
+	Image backImage, missileImage;
 	//드래곤의 좌표
 	int unitX=0;
 	int unitY=0;
@@ -31,6 +30,14 @@ public class GamePanel extends JPanel {
 	int back2Y=-800;
 	
 	List<Missile> missileList = new ArrayList<>();
+	
+	Image[] unitImgs = new Image[2];
+	
+	//유닛을 그릴 때 사용할 index
+	int unitIndex;
+	
+	//메소드 호출 횟수를 누적할 필드
+	int count;
 	
 	
 	//생성자
@@ -44,7 +51,9 @@ public class GamePanel extends JPanel {
 		
 		
 		//src/images/images/unit1.png
-		unitImage = new ImageIcon(url).getImage();
+		unitImgs[0] = new ImageIcon(getClass().getResource("/images/images/unit1.png")).getImage();
+		unitImgs[1] = new ImageIcon(getClass().getResource("/images/images/unit2.png")).getImage();
+		
 		backImage = new ImageIcon(getClass().getResource("/images/images/backbg.png")).getImage();
 		missileImage = new ImageIcon(getClass().getResource("/images/images/mi2.png")).getImage();
 		
@@ -87,6 +96,9 @@ public class GamePanel extends JPanel {
 		Timer timer = new Timer(10, e->{
 			//Panel 객체의 repaint() 메소드를 호출(결과적으로 painComponent() 메소드가 다시 호출됨.)
 			repaint();
+			
+			
+			
 		});
 		
 		timer.start();
@@ -102,6 +114,9 @@ public class GamePanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
+		count++;
+		
 		//메소드의 매개변수에 전달되는 Graphics 객체를 panel에 그림 그릴 수 있는 도구.
 		
 		g.drawImage(backImage, 0,back1Y,500,800,this);
@@ -114,12 +129,26 @@ public class GamePanel extends JPanel {
 		
 		
 		
-		g.drawImage(unitImage, unitX-50, unitY-50, 100, 100, this);
+		g.drawImage(unitImgs[unitIndex], unitX-50, unitY-50, 100, 100, this);
 		
 		//미사일의 갯수 표시
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font("Arial", Font.BOLD, 20));
-		g.drawString("Missile: "+missileList.size(),10,20);
+		g.drawString("count: "+count,10,20);
+		
+		if(count%10==0) {
+			unitIndex++;
+			if(unitIndex==2) {
+				unitIndex =0;
+			}
+			
+		}
+		
+		
+		
+		//unitIndex값이 2가 되면 0으로 변경.
+		
+		
 		
 		//모든 미사일의 y좌표를 감소 시켜서 미사일이 위로 이동하도록 한다.
 		for(Missile tmp: missileList) {
