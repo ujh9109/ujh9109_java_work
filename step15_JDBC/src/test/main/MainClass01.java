@@ -40,6 +40,8 @@ public class MainClass01 {
 		}
 	
 		//select 작업을 위해서 필요한 객체를 담을 지역변수 미리 만들기
+		//insert delete update 작업을 위해서도 필요함.
+		//sql문을 대신 실행해주는 객체
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {

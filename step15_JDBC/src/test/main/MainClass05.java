@@ -1,47 +1,48 @@
 package test.main;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import test.util.DBConnector;
 
-
-public class MainClass04 {
+public class MainClass05 {
 	public static void main(String[] args) {
-		
+		int minSal =2000;
+		int maxSal =3000;
+		//위의 범위의 sal을 받는 사원들의 empno,ename,sal을 select
+		//sal 기준으로 오름차순 정렬
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
 			conn = new DBConnector().getConn();
-		
+			
+			//실행할 sql문의 뼈대 구성하기
 			String sql = """
-					SELECT empno,ename,deptno,dname
-					from emp
-					inner join dept using(deptno)
-					order by empno asc
+					Select empno,ename,sal
+					From emp
+					Where sal between ? And ?
+					order by sal asc
 					""";
 			
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
 			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, minSal);
+			pstmt.setInt(2, maxSal);
+			
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int empno = rs.getInt("empno");
-				int deptno = rs.getInt("deptno");
-				String dname = rs.getString("dname");
 				String ename = rs.getString("ename");
+				int sal= rs.getInt("sal");
+				System.out.println(empno+" | "+ename+" | "+sal);
 				
-				String info = String.format("사원번호:%d 사원이름:%s 부서번호:%d 부서명:%s",empno,ename,deptno,dname);
-				System.out.println(info);
 			}
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-}
-
+	}//main 메소드 끝
+}//MainClass05 클래스 끝
